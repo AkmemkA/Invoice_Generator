@@ -55,6 +55,6 @@ for path in filepaths:
 
 
 
-    pdf.output(f"PDFs/Invoice {invoice_number}-{date_created}.pdf")
+pdf.output(f"PDFs/Invoice {invoice_number}-{date_created}.pdf")
 
 

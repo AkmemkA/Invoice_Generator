@@ -57,7 +57,4 @@ for path in filepaths:
     pdf.cell(w=40, h=8, txt=f"SpongeBob Inc.")
     pdf.image("bob.png", w=10)
 
-
     pdf.output(f"PDFs/Invoice {invoice_number}-{date_created}.pdf")
-
-

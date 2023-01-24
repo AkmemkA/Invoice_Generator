@@ -5,8 +5,6 @@ from fpdf import FPDF
 filepaths = glob.glob("Invoices/*xlsx")
 
 for path in filepaths:
-    df = pd.read_excel(path, sheet_name="Sheet 1")
-
     # Create PDF file, add page
     pdf = FPDF(orientation="P", unit="mm", format="A4")
     pdf.add_page()
@@ -19,6 +17,8 @@ for path in filepaths:
     pdf.cell(w=50, h=8, txt=f"Invoice # {invoice_number}", align="L", ln=1)
     pdf.set_font(family="Times", size=16, style="B")
     pdf.cell(w=50, h=8, txt=f"Date: {date_created}", align="L", ln=1)
+
+    df = pd.read_excel(path, sheet_name="Sheet 1")
 
     # Add a header
     columns_ids = df.columns
@@ -48,13 +48,16 @@ for path in filepaths:
     pdf.cell(w=30, h=8, txt="", border=1)
     pdf.cell(w=30, h=8, txt=str(sum_totals), border=1, ln=1)
 
-    # Add summary under the table
+    # Add total sum sentence
     pdf.set_font(family="Times", size=14, style="B")
     pdf.cell(w=30, h=8, txt="", ln=1)
-    pdf.cell(w=30, h=8, txt=f"The total of the invoice is: {str(sum_totals)} euro.", ln=1)
+    pdf.cell(w=30, h=8, txt=f"The total is: {str(sum_totals)} $", ln=1)
+    # Add company name and logo
+    pdf.set_font(family="Times", size=14, style="B")
+    pdf.cell(w=40, h=8, txt=f"SpongeBob Inc.")
+    pdf.image("bob.png", w=10)
 
 
-
-pdf.output(f"PDFs/Invoice {invoice_number}-{date_created}.pdf")
+    pdf.output(f"PDFs/Invoice {invoice_number}-{date_created}.pdf")
 
 
